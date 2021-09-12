@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 import json, os
 
+from authapp.models import ShopUser
+
 JSON_PATH = 'mainapp/json'
 
 
@@ -14,7 +16,7 @@ def load_from_json(file_name):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        categories = load_from_json('categories')
+        """    categories = load_from_json('categories')
 
         ProductCategory.objects.all().delete()
         for category in categories:
@@ -32,6 +34,6 @@ class Command(BaseCommand):
             product['category'] = _category
             new_product = Product(**product)
             new_product.save()
-
+"""
         # Создаем суперпользователя при помощи менеджера модели
-        super_user = User.objects.create_superuser('django', 'django@geekshop.local', 'geekbrains')
+        super_user = ShopUser.objects.create_superuser('django', 'django@geekshop.local', 'geekbrains', age=30)
